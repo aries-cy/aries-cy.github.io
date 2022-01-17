@@ -1,14 +1,18 @@
 ---
-layout: page
-title: 404
-sitemap:
-  exclude: 'yes'
+permalink: /404.html
 ---
 
-<h2 class="go-home">
-    I suggest you <a href="/">going home</a>, it's 404 and it's getting dark!
-</h2>
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
+<body>
+  <section class="fourzerofour">
+      <p>
+        <img src="{{ '/assets/img/cat_404.jpg' | relative_url }}" width="300px"><br>
+        404 page not found <br>
+        Go <a href="{{ '/' | relative_url }}">home</a> :)
+      </p>
+  </section>
 
-
-<!-- Adding the glitch effect -->
-<script> document.getElementsByTagName('body')[0].classList.add('glitch'); </script>
+</body>
+</html>

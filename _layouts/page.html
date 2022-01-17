@@ -1,8 +1,24 @@
----
-layout: default
----
-{% include page/title.html %}
+<!DOCTYPE html>
+<html>
 
-{{ content }}
+{% include head.html %}
 
-{% include page/explore.html %}
+<body>
+  <div class="content">
+
+    {% include header.html %}
+
+    {% include mobile_menu.html %}
+    
+    <main class="main">
+
+    {{ content }}
+
+    </main>
+
+  </div>
+
+  {% include footer.html %}
+  {% include js.html %}
+</body>
+</html>

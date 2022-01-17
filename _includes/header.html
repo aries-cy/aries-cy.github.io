@@ -1,24 +1,36 @@
 <header class="header">
-    <div class="navigation">
-        <a href="/" class="logo">{{ site.title }}</a>
 
-        <ul class="menu">
-            <li class="menu__entry"><a href="{{ '/about' | prepend: site.baseurl }}">About</a></li>
-            <li class="menu__entry"><a href="{{ '/' | prepend: site.baseurl }}">Blog</a></li>
-        </ul>
-    </div>
+  <div class="header_content">
+    <label class="theme_changer">
+      <input theme_toggle type="checkbox">
+      <div class="button"></div>
+    </label>
+    <a class="header_circle" href="{{ '/' | relative_url }}">
+      <img src="{{ site.user.pic | relative_url }}" alt="{{ site.user.picAlt }}">
+    </a>
+    <span class="header_name">{{ site.user.name }}</span>
+    <span class="header_job">{{ site.user.job }}</span>
+    <span class="header_mes">{{ site.user.message }}</span>
 
-    <ul class="social-links">
-        {% if site.author.github %}
-            <a href="https://github.com/{{ site.author.github }}" class="social-links__entry" target="_blank">
-                <i class="fa fa-github"></i>
-            </a>
-        {% endif %}
+    <nav class="nav">
+      {% if site.user.aboutme %}
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="{{ site.baseurl }}/aboutme.html">about</a>
+        </li>
+      </ul>
+      {% endif %}
+      {% for category in site.categories %}
+      {% capture cat_name %}{{ category | first }}{% endcapture %}
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a href="{{ site.baseurl }}/categories/{{ cat_name }}" id="aa">{{ cat_name }}
+            ({{ category | last | size }})</a>
+        </li>
+      </ul>
+      {% endfor %}
+    </nav>
+  </div>
 
-        {% if site.author.twitter %}
-            <a href="https://twitter.com/{{ site.author.twitter }}" class="social-links__entry" target="_blank">
-                <i class="fa fa-twitter"></i>
-            </a>
-        {% endif %}
-    </ul>
 </header>
+

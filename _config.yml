@@ -24,7 +24,7 @@ user:
   pic: /assets/img/tx.jpg
   picAlt: "catbook"
   job: Java工程师
-  aboutme: true # comment this out if you don't need the 'about' page.
+  aboutme: false # comment this out if you don't need the 'about' page.
 
 exclude:
   - README.md

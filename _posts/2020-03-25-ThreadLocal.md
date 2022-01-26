@@ -6,21 +6,21 @@ comments: true
 
 一、ThreadLocal定义
 
-    ThreadLocal是Java中提供的线程本地存储机制，可以利用该机制将数据缓存在某个线程内部，该线程可以在任意时刻获取缓存中的数据。
+ThreadLocal是Java中提供的线程本地存储机制，可以利用该机制将数据缓存在某个线程内部，该线程可以在任意时刻获取缓存中的数据。
 
-    ThreadLocal底层是通过ThreadLocalMap实现的，每个Thread对象中都存在一个ThreadLocalMap，Map的Key为ThreadLocal对象，Map的Value为存储的对象。
+ThreadLocal底层是通过ThreadLocalMap实现的，每个Thread对象中都存在一个ThreadLocalMap，Map的Key为ThreadLocal对象，Map的Value为存储的对象。
 
 二、存在的问题
 
-    如果在线程池中使用ThreadLocal会造成内存泄漏，因为当ThreadLocal对象使用完成后，应该把entry对象进行回收，但是线程池中的线程不会被回收，而线程对象是通过强引用指向ThreadLocalMap，ThreadLocalMap也是通过强引用指向entry对象，线程不被回收，entry对象也不会被回收，从而出现内存泄漏。
+如果在线程池中使用ThreadLocal会造成内存泄漏，因为当ThreadLocal对象使用完成后，应该把entry对象进行回收，但是线程池中的线程不会被回收，而线程对象是通过强引用指向ThreadLocalMap，ThreadLocalMap也是通过强引用指向entry对象，线程不被回收，entry对象也不会被回收，从而出现内存泄漏。
 
-    解决办法：在使用了ThreadLocal对象后，手动调用ThreadLocal的remove()方法。
+解决办法：在使用了ThreadLocal对象后，手动调用ThreadLocal的remove()方法。
 
 三、使用ThreadLocal
 
-    假设有一个简单的需求，需要打印一个线程执行任务的时间。
+假设有一个简单的需求，需要打印一个线程执行任务的时间。
 
-    首先定义一个Context，在Context中定义一个ThreadLocal，并提供set、get、remove方法：
+首先定义一个Context，在Context中定义一个ThreadLocal，并提供set、get、remove方法：
 
 ```java
 static class Context{
@@ -41,7 +41,7 @@ static class Context{
 }
 ```
 
-    然后定义一个Runable，在run()方法中，开始的时候在Threadlocal中设置线程开始的时间，然后在结束的时候，输出线程执行任务的时间：
+然后定义一个Runable，在run()方法中，开始的时候在Threadlocal中设置线程开始的时间，然后在结束的时候，输出线程执行任务的时间：
 
 ```java
 static class TimeThread implements Runnable{
@@ -61,7 +61,7 @@ static class TimeThread implements Runnable{
 }
 ```
 
-    在main()方法中测试一下
+在main()方法中测试一下
 
 ```java
 public static void main(String[] args) {
@@ -72,9 +72,9 @@ public static void main(String[] args) {
 
 四、父线程传递本地变量到子线程
 
-    在实际的工作中，我们可能会遇到子线程中会用到父线程中的本地变量，那么这种情况应该怎么处理呢？
+在实际的工作中，我们可能会遇到子线程中会用到父线程中的本地变量，那么这种情况应该怎么处理呢？
 
-    在Java中，提供了 `InheritableThreadLocal` 这样一个类，它继承了ThreadLocal，可以让子线程获取父线程中的本地变量，下面写代码测试一下。
+在Java中，提供了 `InheritableThreadLocal` 这样一个类，它继承了ThreadLocal，可以让子线程获取父线程中的本地变量，下面写代码测试一下。
 
 ```java
 package com.cy.threadlocal;
@@ -127,7 +127,9 @@ public class ThreadLocalTest {
     }
 }
 ```
-    执行上面的main()方法，控制台输出如下：
+
+执行上面的main()方法，控制台输出如下：
+
 ![](https://aries-cy.github.io/assets/note_img/threadlocal_ans.png)
 
-    可以看到子线程中确实获取到了父线程中的本地变量，而其他无关的线程并没有获取到该线程的本地变量。
+可以看到子线程中确实获取到了父线程中的本地变量，而其他无关的线程并没有获取到该线程的本地变量。
